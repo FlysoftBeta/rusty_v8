@@ -157,6 +157,16 @@ void v8__V8__SetFatalErrorHandler(v8::V8FatalErrorCallback that) {
   v8::V8::SetFatalErrorHandler(that);
 }
 
+void v8__Locker__CONSTRUCT(uninit_t<v8::Locker>* locker, v8::Isolate* isolate) {
+  construct_in_place<v8::Locker>(locker, isolate);
+}
+
+void v8__Locker__DESTRUCT(v8::Locker* locker) { locker->~Locker(); }
+
+bool v8__Locker__IsLocked(v8::Isolate* isolate) {
+  return v8::Locker::IsLocked(isolate);
+}
+
 v8::Isolate* v8__Isolate__New(const v8::Isolate::CreateParams& params) {
   return v8::Isolate::New(params);
 }
